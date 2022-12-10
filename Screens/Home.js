@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react'
 import { StyleSheet, Text, Image, View, Button, FlatList, Alert } from 'react-native';
 import {Card, FAB} from 'react-native-paper';
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import { useIsFocused } from "@react-navigation/native";
 
 
 
@@ -15,6 +16,8 @@ function Home(props) {
         console.log('error', e)
     }
   }
+  
+  const isFocused = useIsFocused();
   const token = getTokenData()
   const [data, setData] = useState([])
   const [loading, setLoading] = useState(true)
@@ -37,7 +40,7 @@ function Home(props) {
   useEffect(() => {
     getTokenData()
       .then(() => loadData())
-  }, [])
+  }, [isFocused])
 
  
 
@@ -71,14 +74,14 @@ function Home(props) {
       keyExtractor = {item => `${item.id}`}
       />
 
-      <FAB
+      {/* <FAB
         style={styles.fab}
         small = {false}
         icon = "plus"
         theme={{colors:{accent:'blue'}}}
 
         onPress = {() => props.navigation.navigate("Create")}
-      />
+      /> */}
 
      </View>
   )
@@ -90,13 +93,13 @@ const styles = StyleSheet.create({
         padding: 10,
         margin: 10,
     },
-    fab: {
-      position: 'absolute',
-      margin:16,
-      right:0,
-      bottom:0,
-      backgroundColor:'blue'
-    }
+    // fab: {
+    //   position: 'absolute',
+    //   margin:16,
+    //   right:0,
+    //   bottom:0,
+    //   backgroundColor:'blue'
+    // }
 })
 
 export default Home

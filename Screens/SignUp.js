@@ -11,7 +11,7 @@ function SignUp(props) {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const clickedItem = () => {
-        props.navigation.navigate("Home")
+        props.navigation.navigate("App")
       }
     const loadData = () => {
         fetch('http://172.20.10.3:8000/api/auth/token/login/', {
