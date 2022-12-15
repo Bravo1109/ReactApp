@@ -207,18 +207,19 @@ function Chat(props) {
         width: '100%'}}>
       <TextInput
             label = "Text"
+            multiline={true}
             value={text}
             mode = "outlined"
             ref={textInput}
             onChangeText = {text => setText(text)}
-            style={{width: '85%', borderRadius:100}}
+            style={{width: '85%', borderRadius:100, maxHeight: 120}}
         />
         <IconButton
             icon='send'
-            color='white'
+            iconColor='white'
+            containerColor='blue'
             size={25}
             style={{
-              backgroundColor:'blue',
               borderRadius: 100,
               width:50,
               height:50
@@ -267,7 +268,7 @@ function Chat(props) {
             alignItems: 'center',
             justifyContent: 'flex-end',
             overflow:'hidden'
-          }} onPress={() => setModal(false)}>
+          }}>
           <Button
             mode='outlined'
             // color='black'

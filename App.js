@@ -14,6 +14,7 @@ import Profile from './Screens/Profile';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import MyProfile from './Screens/MyProfile';
+import RatingList from './Screens/RatingList';
 
 const Stack = createStackNavigator()
 const Tab = createBottomTabNavigator();
@@ -54,29 +55,20 @@ function ChatStackScreen() {
   )
 }
 
-function DetailsScreen() {
-  return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Details!</Text>
-    </View>
-  );
-}
-function SettingsScreen({ navigation }) {
-  return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Settings screen</Text>
-      <Button
-        title="Log Out"
-        onPress={() => {
-          AsyncStorage.removeItem('token')
-          navigation.navigate('StartScreen')
-        }}
+function RatingListStackScreen() {
+  return(
+    <Stack.Navigator>
+      <Stack.Screen name="RatingStack" component={RatingList}
+      options={{...myStyles, title: "Rating List", headerLeft: null}}
       />
-      <Button
-        title="Console"
+      <Stack.Screen name = "Profile" component={Profile}
+      options = {{...myStyles, title: "Profile"}}
       />
-    </View>
-  );
+      <Stack.Screen name = "Chat" component={Chat}
+      options = {{...myStyles, title: "Chat"}}
+      />
+    </Stack.Navigator>
+  )
 }
 function ProfileStackScreen() {
   return (
@@ -120,6 +112,8 @@ function App() {
               : 'comments';
           } else if (route.name === 'Settings') {
             iconName = focused ? 'user' : 'user';
+          } else if (route.name === 'RatingList') {
+            iconName = focused ? 'users' : 'users';
           }
 
           // You can return any component that you like here!
@@ -129,6 +123,9 @@ function App() {
         tabBarInactiveTintColor: 'gray',
       })}
       >
+        <Tab.Screen name = "RatingList" component={RatingListStackScreen}
+        options = {{...myStyles, title: "Rating list", headerShown: false}}
+        />
         <Tab.Screen name = "ChatList" component={ChatStackScreen}
         options = {{...myStyles, title: "Chats", headerShown: false}}
         />

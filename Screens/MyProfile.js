@@ -77,13 +77,13 @@ function MyProfile(props) {
   };
   console.log("profData: ", profileData)
   return (
-    <View style={{flex:1, alignItems: 'center'}}>
-        <Image style={{width:'100%', height:'40%', borderRadius:5}} source={{
+    <View style={{flex:1, alignItems: 'center', backgroundColor: '#fff'}}>
+        <Image style={{width:'100%', height:'40%', backgroundColor: '#aaa'}} source={{
             uri: `http://172.20.10.3:8000${profileData.profile_photo}`
         }}/>
         <Text style={{fontSize:25}}>Name: {userData.name}</Text>
         <Text style={{fontSize:25}}>Age: {userData.age}</Text>
-        <Text style={{fontSize:25}}>City: {userData.city.name}, {userData.city.country}</Text>
+        <Text style={{fontSize:25}}>Location: {userData.city.name}, {userData.city.country}</Text>
         <Text style={{fontSize:25}}>About myself: {profileData.description}</Text>
         <Button
             mode='contained'

@@ -4,8 +4,6 @@ import {Card, FAB} from 'react-native-paper';
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useIsFocused } from "@react-navigation/native";
 
-
-
 function Home(props) {
   getTokenData = async () => {
     try {
@@ -34,7 +32,9 @@ function Home(props) {
       setLoading(false)
     })
     .catch(error => {
-      Alert.alert("Error", error)
+      console.log("Error", error)
+      AsyncStorage.removeItem('token')
+      props.navigation.navigate('StartScreen')
     })
   }
   useEffect(() => {
@@ -49,9 +49,9 @@ function Home(props) {
   }
   const renderData = (item) => {
     return(
-    <Card style={styles.cardStyle} onPress = {() => clickedItem(item)}>
+    <Card style={styles.cardStyle} onPress = {() => clickedItem(item)} mode='contained'>
       <View style={{flexDirection:"row", alignItems: 'center',}}> 
-        <Image style={{width:60, height:60, borderRadius:50}} source={{
+        <Image style={{width:60, height:60, borderRadius:50, backgroundColor: '#000'}} source={{
           uri: `http://172.20.10.3:8000${item.users[0].photo}`
         }}/>
         <View style={{marginLeft: 20}}>
@@ -74,15 +74,6 @@ function Home(props) {
       keyExtractor = {item => `${item.id}`}
       />
 
-      {/* <FAB
-        style={styles.fab}
-        small = {false}
-        icon = "plus"
-        theme={{colors:{accent:'blue'}}}
-
-        onPress = {() => props.navigation.navigate("Create")}
-      /> */}
-
      </View>
   )
 }
@@ -90,16 +81,9 @@ function Home(props) {
 const styles = StyleSheet.create({
     cardStyle: {
         flexDirection:"row",
-        padding: 10,
-        margin: 10,
+        padding: 15,
+        backgroundColor: '#fff'
     },
-    // fab: {
-    //   position: 'absolute',
-    //   margin:16,
-    //   right:0,
-    //   bottom:0,
-    //   backgroundColor:'blue'
-    // }
 })
 
 export default Home
