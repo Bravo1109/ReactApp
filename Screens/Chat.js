@@ -110,14 +110,14 @@ function Chat(props) {
     let mesDate = pubId
     let itemStyle =  StyleSheet.create({
         myCardStyle: {
-            fontSize: 25,
-            padding: 10,
-            textAlign: "right",
+            fontSize: 20,
+            padding: 15,
+            textAlign: "left",
             color: "white"
         },
         userCardStyle: {
-            fontSize: 25,
-            padding: 10,
+            fontSize: 20,
+            padding: 15,
             color: "white"
         }
     })
@@ -131,7 +131,7 @@ function Chat(props) {
             {(item.id == messages.at(-1).id) && <Text style={styles.dateStyleMessages}>{item.pub_date}</Text>}
           <Card style={{justifyContent: "right", alignItems:'flex-end', backgroundColor: 'transparent'}}>
           <TouchableOpacity
-            style={{margin:5, maxWidth:'80%', borderRadius:`15`, backgroundColor: "blue"}}
+            style={{margin:5, maxWidth:'80%', borderRadius:`25`, backgroundColor: "blue"}}
             onLongPress={() => {
               setModal(true)
               setItemId(item.id)
@@ -152,7 +152,7 @@ function Chat(props) {
           <View>
             {(item.id == messages.at(-1).id) && <Text style={styles.dateStyleMessages}>{item.pub_date}</Text>}
           <Card style={{justifyContent: "left", alignItems:'flex-start', backgroundColor: 'transparent'}}>
-              <View style={{margin:5, maxWidth:'80%', borderRadius:`15`, backgroundColor: "#222222"}}>
+              <View style={{margin:5, maxWidth:'80%', borderRadius:`25`, backgroundColor: "#222222"}}>
                   <Text style = {itemStyle.userCardStyle}>{item.text}</Text> 
               </View>
           </Card>
@@ -170,7 +170,7 @@ function Chat(props) {
       activeOpacity={1}
     >
     <Image 
-     style={{marginTop:10, width:40, height:40, borderRadius:50}}
+     style={{marginTop:10, width:40, height:40, borderRadius:100}}
      source={{
           uri: `http://172.20.10.3:8000${users[0].photo}`
         }}/>

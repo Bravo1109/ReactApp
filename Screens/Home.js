@@ -56,7 +56,11 @@ function Home(props) {
         }}/>
         <View style={{marginLeft: 20}}>
           <Text style = {{fontSize:25}}>{item.users[0].username}</Text>
-          <Text style = {{fontSize:20, color:'#aaa'}}>{item.messages[0].text}</Text>
+          <Text numberOfLines={1} style = {{fontSize:20, color:'#aaa', width:'100%'}}>
+            {item.messages[0].text.length < 10
+              ? `${item.messages[0].text}`
+              : `${item.messages[0].text.substring(0, 15)}...`}
+            </Text>
         </View>
       </View>
     </Card>
@@ -72,6 +76,7 @@ function Home(props) {
       onRefresh = {() => loadData()}
       refreshing = {loading}
       keyExtractor = {item => `${item.id}`}
+      style={{backgroundColor:'#fff'}}
       />
 
      </View>

@@ -72,6 +72,7 @@ function SignUp(props) {
                 onChangeText = {email => setEmail(email)}
             />
             <TextInput style = {styles.inputStyle}
+                secureTextEntry={true}
                 label = "Password"
                 value={password}
                 mode = "outlined"

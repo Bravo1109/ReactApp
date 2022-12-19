@@ -2,7 +2,6 @@ import { StyleSheet, Text, View, StatusBar, SafeAreaView, Button } from 'react-n
 import React, { useState, useEffect } from "react";
 import Home from './Screens/Home';
 import ClassA from './Screens/ClassA';
-import Create from './Screens/Create';
 import Constants from 'expo-constants';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -39,9 +38,6 @@ function ChatStackScreen() {
         /> */}
         <Stack.Screen name = "Home" component={Home}
           options = {{...myStyles, headerLeft: null}}
-        />
-        <Stack.Screen name = "Create" component={Create}
-          options = {{...myStyles, title: "Create message"}}
         />
         <Stack.Screen name = "Chat" component={Chat}
           options = {{...myStyles, title: "Chat"}}
@@ -114,6 +110,8 @@ function App() {
             iconName = focused ? 'user' : 'user';
           } else if (route.name === 'RatingList') {
             iconName = focused ? 'users' : 'users';
+          } else if (route.name === 'Loading Progress') {
+            iconName = focused ? 'star' : 'star';
           }
 
           // You can return any component that you like here!

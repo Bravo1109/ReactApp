@@ -20,13 +20,33 @@ function StartPage(props) {
   const [loading, setLoading] = useState(true)
   const isFocused = useIsFocused();
   const [token, setToken] = useState()
+  const loadData = () => {
+    fetch('http://172.20.10.3:8000/api/chats/', {
+      method:"GET",
+      headers: {
+        'Authorization': `${token}`
+      }
+    }).then((resp) => {
+      if (resp.status == 200) {
+        props.navigation.navigate("App")
+      }
+      else {
+        props.navigation.navigate("Signup")
+      }
+    })
+    .catch(error => {
+      console.log("Error", error)
+      AsyncStorage.removeItem('token')
+      props.navigation.navigate('Signup')
+    })
+  }
   const checkLoading = () => {
     setTimeout(() => {
       if (token == undefined) {
         props.navigation.navigate("Signup")
       }
       else {
-        props.navigation.navigate("App")
+        loadData()
       }
     }, 100)
   }

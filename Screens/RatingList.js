@@ -50,7 +50,7 @@ function RatingList(props) {
           uri: `http://172.20.10.3:8000${item.photo}`
         }}/>
         <View style={{marginTop: 5}}>
-          <Text style = {{fontSize:15}}>{item.name}, {item.age}</Text>
+          <Text style = {{fontSize:13}}>{item.name}, {item.age}</Text>
         </View>
       </View>
     </TouchableOpacity>
