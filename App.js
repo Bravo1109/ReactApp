@@ -1,8 +1,6 @@
-import { StyleSheet, Text, View, StatusBar, SafeAreaView, Button } from 'react-native';
+import { StyleSheet, View} from 'react-native';
 import React, { useState, useEffect } from "react";
 import Home from './Screens/Home';
-import ClassA from './Screens/ClassA';
-import Constants from 'expo-constants';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -14,6 +12,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import MyProfile from './Screens/MyProfile';
 import RatingList from './Screens/RatingList';
+import Swipes from './Screens/Swipes';
 
 const Stack = createStackNavigator()
 const Tab = createBottomTabNavigator();
@@ -30,12 +29,6 @@ function ChatStackScreen() {
   return(
     <View style={styles.container}>
       <Stack.Navigator>
-        {/* <Stack.Screen name = "StartScreen" component={StartPage}
-          // options = {myStyles}
-        />
-        <Stack.Screen name = "Signup" component={SignUp}
-          options = {{...myStyles, title: "Login"}}
-        /> */}
         <Stack.Screen name = "Home" component={Home}
           options = {{...myStyles, headerLeft: null}}
         />
@@ -76,6 +69,16 @@ function ProfileStackScreen() {
   );
 }
 
+function SwipeStackScreen() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name="Swipes page" component={Swipes}
+      options={{...myStyles, title: "Swipes", headerLeft: null}}
+      />
+    </Stack.Navigator>
+  )
+}
+
 function LoginScreen() {
   return(
     <Stack.Navigator>
@@ -97,7 +100,7 @@ function App() {
   return (
     <View style={styles.container}>
       <Tab.Navigator
-       initialRouteName='ChatList'
+       initialRouteName='Swipes'
        screenOptions={({ route }) => ({
         tabBarIcon: ({ focused, color, size }) => {
           let iconName;
@@ -108,13 +111,14 @@ function App() {
               : 'comments';
           } else if (route.name === 'Settings') {
             iconName = focused ? 'user' : 'user';
+            
           } else if (route.name === 'RatingList') {
             iconName = focused ? 'users' : 'users';
           } else if (route.name === 'Loading Progress') {
             iconName = focused ? 'star' : 'star';
+          } else if (route.name === 'Swipes') {
+            iconName = focused ? 'search' : 'search';
           }
-
-          // You can return any component that you like here!
           return <Icon name={iconName} size={size} color={color} />;
         },
         tabBarActiveTintColor: 'blue',
@@ -123,6 +127,9 @@ function App() {
       >
         <Tab.Screen name = "RatingList" component={RatingListStackScreen}
         options = {{...myStyles, title: "Rating list", headerShown: false}}
+        />
+        <Tab.Screen name = "Swipes" component={SwipeStackScreen}
+        options = {{...myStyles, title: "Swipes", headerShown: false}}
         />
         <Tab.Screen name = "ChatList" component={ChatStackScreen}
         options = {{...myStyles, title: "Chats", headerShown: false}}
