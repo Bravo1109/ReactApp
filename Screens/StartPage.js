@@ -9,8 +9,7 @@ function StartPage(props) {
   getTokenData = async () => {
     try {
       const tokenData = await AsyncStorage.getItem('token')
-      setToken(tokenData)
-      setLoading(false)
+      // console.log('tokenbd',token)
       return tokenData
     } catch(e) {
       console.log('error', e)
@@ -19,44 +18,53 @@ function StartPage(props) {
   }
   const [loading, setLoading] = useState(true)
   const isFocused = useIsFocused();
-  const [token, setToken] = useState()
+  const token = getTokenData()
   const loadData = () => {
+    console.log('logout', token._z)
     fetch('http://172.20.10.3:8000/api/chats/', {
       method:"GET",
       headers: {
-        'Authorization': `${token}`
+        'Authorization': `${token._z}`
       }
     }).then((resp) => {
+      console.log('tokenLoad', token._z)
       if (resp.status == 200) {
         props.navigation.navigate("App")
+        setLoading(false)
       }
       else {
         props.navigation.navigate("Signup")
+        setLoading(false)
       }
     })
     .catch(error => {
       console.log("Error", error)
       AsyncStorage.removeItem('token')
       props.navigation.navigate('Signup')
+      setLoading(false)
     })
   }
   const checkLoading = () => {
+    getTokenData()
     setTimeout(() => {
-      if (token == undefined) {
+      if (token == undefined || token == null) {
         props.navigation.navigate("Signup")
+        return
       }
       else {
         loadData()
       }
-    }, 100)
+    }, 1000)
   }
   useEffect(() => {
     getTokenData()
+      .then(() => loadData())
   }, [isFocused])
 
   if (!loading) {
     return (
-      checkLoading()
+      // checkLoading()
+      <View></View>
     )
   };
   return (

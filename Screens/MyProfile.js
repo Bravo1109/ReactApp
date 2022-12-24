@@ -3,6 +3,7 @@ import { StyleSheet, Text, Image, View, ActivityIndicator, FlatList, } from 'rea
 import { Button } from 'react-native-paper';
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import {Card} from 'react-native-paper';
+import StartPage from './StartPage';
 
 
 function MyProfile(props) {
@@ -52,7 +53,21 @@ function MyProfile(props) {
         console.log('error', e)
     }
   }
+  const removeTokenData = async () => {
+    await AsyncStorage.removeItem('token');
+  }
   
+  const checkToken = () => {
+    removeTokenData()
+    .then(() => {
+      console.log('exittoken',AsyncStorage.getItem('token'))
+      props.navigation.navigate('StartScreen', {logged_out:true})
+    })
+    .catch(
+      console.log('error')
+    )
+  }
+
   useEffect(() => {
     getTokenData()
       .then(() => loadUserData())
@@ -127,9 +142,8 @@ function MyProfile(props) {
               bottom: 20
             }}
             onPress={() => {
-                AsyncStorage.removeItem('token')
-                props.navigation.navigate('StartScreen')
-              }}
+              checkToken()
+            }}
         >Log Out</Button>
     </View>
       )

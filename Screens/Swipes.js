@@ -4,13 +4,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const SCREEN_HEIGHT = Dimensions.get('window').height
 const SCREEN_WIDTH = Dimensions.get('window').width
-const Users = [
-  { id: "1", uri: 'https://yandex.ru/images/search?from=tabbar&text=ton&pos=1&img_url=http%3A%2F%2Fcoinnet.ru%2Fwp-content%2Fuploads%2F2018%2F02%2Fton.jpg&rpt=simage&lr=218678' },
-  { id: "2", uri: require('../images/2.jpg') },
-  { id: "3", uri: require('../images/3.jpg') },
-  { id: "4", uri: require('../images/4.jpg') },
-  { id: "5", uri: require('../images/5.jpg') },
-]
 
 export default class Swipes extends React.Component {
     getTokenData = async () => {
@@ -23,7 +16,7 @@ export default class Swipes extends React.Component {
     }
     loadData = () => {
         console.log('loading')
-        fetch('http://172.20.10.3:8000/api/users/', {
+        fetch('http://172.20.10.3:8000/api/swipes/', {
           method:"GET",
           headers: {
             'Authorization': `${this.token._z}`
@@ -35,6 +28,17 @@ export default class Swipes extends React.Component {
         })
         .catch(error => {
           console.log("Error", error)
+        })
+    }
+    sendLike = async (id) => {
+        console.log('like')
+        await fetch(`http://172.20.10.3:8000/api/users/${id}/like/create/`, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': `${this.token._z}`
+            }
         })
       }
   constructor() {
@@ -92,7 +96,7 @@ export default class Swipes extends React.Component {
     .then(() => this.loadData())
   }
   componentDidUpdate() {
-    // console.log(this.state.data)
+    // this.loadData()
     // console.log(this.state.loading)
     
   }
@@ -114,6 +118,8 @@ export default class Swipes extends React.Component {
           }).start(() => {
             this.setState({ currentIndex: this.state.currentIndex + 1 }, () => {
               this.position.setValue({ x: 0, y: 0 })
+              this.sendLike(this.state.data[0][this.state.currentIndex - 1].id)
+            //   console.log(this.state.data[0][this.state.currentIndex - 1].id)
             })
           })
         }
@@ -140,7 +146,6 @@ export default class Swipes extends React.Component {
 
   renderUsers = () => {
     console.log(this.token)
-    // console.log(this.state.data)
     const data = this.state.data
     console.log(data[0])
     return data[0].map((item, i) => {

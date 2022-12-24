@@ -13,6 +13,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import MyProfile from './Screens/MyProfile';
 import RatingList from './Screens/RatingList';
 import Swipes from './Screens/Swipes';
+import LikesList from './Screens/LikesList';
 
 const Stack = createStackNavigator()
 const Tab = createBottomTabNavigator();
@@ -79,6 +80,19 @@ function SwipeStackScreen() {
   )
 }
 
+function LikeStackScreen() {
+  return(
+    <Stack.Navigator>
+      <Stack.Screen name="Likes List" component={LikesList}
+      options={{...myStyles, title: "Likes", headerLeft: null}}
+      />
+      <Stack.Screen name = "Profile" component={Profile}
+        options = {{...myStyles, title: "Profile"}}
+      />
+    </Stack.Navigator>
+  )
+}
+
 function LoginScreen() {
   return(
     <Stack.Navigator>
@@ -118,6 +132,8 @@ function App() {
             iconName = focused ? 'star' : 'star';
           } else if (route.name === 'Swipes') {
             iconName = focused ? 'search' : 'search';
+          } else if (route.name === 'Likes') {
+            iconName = focused ? 'heart' : 'heart';
           }
           return <Icon name={iconName} size={size} color={color} />;
         },
@@ -130,6 +146,9 @@ function App() {
         />
         <Tab.Screen name = "Swipes" component={SwipeStackScreen}
         options = {{...myStyles, title: "Swipes", headerShown: false}}
+        />
+        <Tab.Screen name = "Likes" component={LikeStackScreen}
+        options = {{...myStyles, title: "Likes", headerShown: false}}
         />
         <Tab.Screen name = "ChatList" component={ChatStackScreen}
         options = {{...myStyles, title: "Chats", headerShown: false}}
