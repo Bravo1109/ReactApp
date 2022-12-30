@@ -41,6 +41,18 @@ export default class Swipes extends React.Component {
             }
         })
       }
+    
+      sendDislike = async (id) => {
+        console.log('Dislike')
+        await fetch(`http://172.20.10.3:8000/api/users/${id}/dislike/create/`, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': `${this.token._z}`
+            }
+        })
+      }
   constructor() {
     super()
     
@@ -130,6 +142,7 @@ export default class Swipes extends React.Component {
           }).start(() => {
             this.setState({ currentIndex: this.state.currentIndex + 1 }, () => {
               this.position.setValue({ x: 0, y: 0 })
+              this.sendDislike(this.state.data[0][this.state.currentIndex - 1].id)
             })
           })
         }
@@ -218,6 +231,7 @@ export default class Swipes extends React.Component {
       <View style={{ flex: 1 }}>
         <View style={{position:'absolute', width: '100%', height: '100%', justifyContent:'center'}}>
         <Text style={{fontSize: 40, textAlign: 'center'}}>That's All</Text>
+        <Text style={{fontSize: 30, textAlign: 'center'}}>for now</Text>
         </View>
         <View style={{ flex: 1 }}>
           {this.renderUsers()}

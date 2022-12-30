@@ -265,24 +265,27 @@ function Chat(props) {
             height: 100,
             width: '90%',
             marginBottom: '15%',
-            alignItems: 'center',
             justifyContent: 'flex-end',
             overflow:'hidden'
           }}>
           <Button
             mode='outlined'
-            // color='black'
+            color='#000'
             onPress={() => {
                 deleteMessage()
                 setModal(false)
             }}
             style={{
-                height: '50%',
+                height: 50,
                 width: '100%',
                 backgroundColor: 'transparent',
-                color: 'black',
+                color: '#000',
                 borderRadius: 0,
-                fontSize: 10
+                fontSize: 10,
+                justifyContent: 'center',
+                borderColor: '#000',
+                borderWidth: 0,
+                borderTopWidth: 1
             }}
           >Delete Message</Button>
           </View>

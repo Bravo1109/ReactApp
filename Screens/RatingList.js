@@ -19,7 +19,7 @@ function RatingList(props) {
   const [loading, setLoading] = useState(true)
   const loadData = () => {
     console.log('loading')
-    fetch('http://172.20.10.3:8000/api/users/', {
+    fetch('http://172.20.10.3:8000/api/rating/', {
       method:"GET",
       headers: {
         'Authorization': `${token._z}`
