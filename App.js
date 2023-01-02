@@ -5,9 +5,10 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Chat from './Screens/Chat';
-import SignUp from './Screens/SignUp';
+import SignIn from './Screens/SignIn';
 import StartPage from './Screens/StartPage';
 import Profile from './Screens/Profile';
+import SignUp from './Screens/SignUp';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import MyProfile from './Screens/MyProfile';
@@ -15,7 +16,7 @@ import RatingList from './Screens/RatingList';
 import Swipes from './Screens/Swipes';
 import LikesList from './Screens/LikesList';
 
-const Stack = createStackNavigator()
+const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
 const myStyles = {
@@ -102,9 +103,12 @@ function LoginScreen() {
       <Stack.Screen name="App" component={App}
           options = {{...myStyles, headerLeft: null, headerShown: false, gestureEnabled: false}}
       />
+      <Stack.Screen name = "Signin" component={SignIn}
+          options = {{...myStyles, title: "Sign in", headerLeft: null, gestureEnabled: false}}
+      />
       <Stack.Screen name = "Signup" component={SignUp}
-          options = {{...myStyles, title: "Log in", headerLeft: null, gestureEnabled: false}}
-        />
+          options = {{...myStyles, title: "Sign up", gestureEnabled: false}}
+      />
     </Stack.Navigator>
   )
 }

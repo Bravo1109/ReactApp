@@ -131,6 +131,7 @@ function Profile(props) {
           </View>
         </View>
         <Text style={{fontSize:25, width: '100%', paddingLeft: 10, fontWeight: '600'}}>Rating: {userData.rating}</Text>
+        <Text style={{fontSize:25, width: '100%', paddingLeft: 10, fontWeight: '600'}}>Sex: {userData.sex}</Text>
         <Text style={{fontSize:25, width: '100%', paddingLeft: 10}}>Location: {userData.city.name}, {userData.city.country}</Text>
         <Text style={{fontSize:25, width: '100%', paddingLeft: 10, marginTop: 15, fontWeight: '600'}}>About myself:</Text>
         <Text style={{fontSize:20, width: '100%', paddingLeft: 15}}>{profileData.description}</Text>

@@ -33,14 +33,14 @@ function StartPage(props) {
         setLoading(false)
       }
       else {
-        props.navigation.navigate("Signup")
+        props.navigation.navigate("Signin")
         setLoading(false)
       }
     })
     .catch(error => {
       console.log("Error", error)
       AsyncStorage.removeItem('token')
-      props.navigation.navigate('Signup')
+      props.navigation.navigate('Signin')
       setLoading(false)
     })
   }
@@ -48,7 +48,7 @@ function StartPage(props) {
     getTokenData()
     setTimeout(() => {
       if (token == undefined || token == null) {
-        props.navigation.navigate("Signup")
+        props.navigation.navigate("Signin")
         return
       }
       else {
