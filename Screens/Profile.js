@@ -99,7 +99,8 @@ function Profile(props) {
           <View style={{margin: 5, justifyContent: 'center', alignItems: 'center'}}>
             <Text style={{fontSize:20}}>Appearance</Text>
             <View style={{height: 40}}>
-              <View style={{height: `${profileData.appearance * 10}%`, width: 40, position: 'absolute', bottom: 0, backgroundColor: 'darkgreen'}}></View>
+              <View style={{height: `100%`, width: 40, position: 'absolute', bottom: 0, backgroundColor: '#aaa'}}></View>
+              <View style={{height: `${profileData.appearance * 10}%`, width: 40, position: 'absolute', bottom: 0, backgroundColor: 'yellow'}}></View>
               <Image style={{width:40, height:40, backgroundColor: 'transparent'}} source={{
                 uri: 'http://172.20.10.3:8000/static/star.png'
               }}/>
@@ -109,7 +110,8 @@ function Profile(props) {
           <View style={{margin: 5, justifyContent: 'center', alignItems: 'center'}}>
             <Text style={{fontSize:20}}>Comunication</Text>
             <View style={{height: 40}}>
-              <View style={{height: `${profileData.comunication * 10}%`, width: 40, position: 'absolute', bottom: 0, backgroundColor: 'darkgreen'}}></View>
+              <View style={{height: `100%`, width: 40, position: 'absolute', bottom: 0, backgroundColor: '#aaa'}}></View>
+              <View style={{height: `${profileData.comunication * 10}%`, width: 40, position: 'absolute', bottom: 0, backgroundColor: 'yellow'}}></View>
               <Image style={{width:40, height:40, backgroundColor: 'transparent'}} source={{
                 uri: 'http://172.20.10.3:8000/static/star.png'
               }}/>
@@ -119,7 +121,8 @@ function Profile(props) {
           <View style={{margin: 5, justifyContent: 'center', alignItems: 'center'}}>
             <Text style={{fontSize:20}}>Activity</Text>
             <View style={{height: 40}}>
-              <View style={{height: `${profileData.activity * 10}%`, width: 40, position: 'absolute', bottom: 0, backgroundColor: 'darkgreen'}}></View>
+              <View style={{height: `100%`, width: 40, position: 'absolute', bottom: 0, backgroundColor: '#aaa'}}></View>
+              <View style={{height: `${profileData.activity * 10}%`, width: 40, position: 'absolute', bottom: 0, backgroundColor: 'yellow'}}></View>
               <Image style={{width:40, height:40, backgroundColor: 'transparent'}} source={{
                 uri: 'http://172.20.10.3:8000/static/star.png'
               }}/>
@@ -127,6 +130,7 @@ function Profile(props) {
             <Text style={{fontSize:25}}>{profileData.activity}/10</Text>
           </View>
         </View>
+        <Text style={{fontSize:25, width: '100%', paddingLeft: 10, fontWeight: '600'}}>Rating: {userData.rating}</Text>
         <Text style={{fontSize:25, width: '100%', paddingLeft: 10}}>Location: {userData.city.name}, {userData.city.country}</Text>
         <Text style={{fontSize:25, width: '100%', paddingLeft: 10, marginTop: 15, fontWeight: '600'}}>About myself:</Text>
         <Text style={{fontSize:20, width: '100%', paddingLeft: 15}}>{profileData.description}</Text>
