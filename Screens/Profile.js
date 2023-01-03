@@ -1,7 +1,10 @@
 import React, { useState, useEffect} from 'react'
 import { StyleSheet, Text, Image,
   View, ActivityIndicator, FlatList, 
-  Modal, TouchableOpacity, KeyboardAvoidingView } from 'react-native';
+  Modal, TouchableOpacity, KeyboardAvoidingView, ImageBackground,
+  ScrollView } from 'react-native';
+import Male from '../images/male.png'
+import Female from '../images/female.png'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { Button, TextInput, IconButton } from 'react-native-paper';
 import {Card} from 'react-native-paper';
@@ -9,7 +12,8 @@ import {Card} from 'react-native-paper';
 
 function Profile(props) {
   const [profileData, setProfileData] = useState([])
-  const as = 50
+  const male = Image.resolveAssetSource(Male).uri
+  const female = Image.resolveAssetSource(Female).uri
   const [text, setText] = useState("")
   const [modal, setModal] = useState(false)
   const [userData, setUserData] = useState()
@@ -88,10 +92,21 @@ function Profile(props) {
   };
   console.log("userData: ", userData)
   return (
-    <View style={{flex:1, alignItems: 'center', backgroundColor: '#fff'}}>
-        <Image style={{width:'100%', height:'40%', backgroundColor: '#aaa'}} source={{
+    <View style={{ flex:1, backgroundColor: '#fff'}}>
+    <ScrollView
+    contentContainerStyle={{alignItems: 'center', flexGrow: 1, backgroundColor: '#fff'}}
+     >
+      <View style={{width:'100%', aspectRatio: 1/0.7}}>
+        <ImageBackground
+        source={userData.sex == 'male' ? {uri: male} : {uri: female}}
+        resizeMode='contain'
+        style={{width:'100%', height: '100%'}}
+        >
+          <Image style={{width:'100%', height:'100%'}} source={{
             uri: `http://172.20.10.3:8000${profileData.profile_photo}`
         }}/>
+        </ImageBackground>
+        </View>
         <Text style={{margin: 10}}>
           <Text style={{fontSize: 30, fontWeight: '600'}}>{userData.name}</Text><Text style={{fontSize: 25, fontWeight: '400'}}>, {userData.age}</Text>
         </Text>
@@ -142,7 +157,7 @@ function Profile(props) {
             mode='contained'
             size={30}
             style={{
-              position: 'absolute',
+              position: 'fixed',
               bottom: 10,
               borderRadius: 100,
               width:70,
@@ -210,8 +225,8 @@ function Profile(props) {
           </View>
         </KeyboardAvoidingView>
     </Modal>
+    </ScrollView>
     </View>
-    
       )
 }
 

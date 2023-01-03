@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from 'react'
-import { StyleSheet, Text, Image, View, ActivityIndicator, FlatList, } from 'react-native';
+import { StyleSheet, Text, Image, View, ActivityIndicator, ImageBackground, ScrollView, FlatList } from 'react-native';
 import { Button } from 'react-native-paper';
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import {Card} from 'react-native-paper';
 import { useIsFocused } from "@react-navigation/native";
-import StartPage from './StartPage';
+import Male from '../images/male.png'
+import Female from '../images/female.png'
 
 
 function MyProfile(props) {
   const [profileData, setProfileData] = useState([])
+  const male = Image.resolveAssetSource(Male).uri
+  const female = Image.resolveAssetSource(Female).uri
   const [userData, setUserData] = useState()
   const [loading, setLoading] = useState(true);
   const token = getTokenData()
@@ -82,10 +85,9 @@ function MyProfile(props) {
   }, [userData])
 
   const renderData = (item) => {
-    console.log('Here')
     return(
         <Card>
-        <Text>City: {item.name}</Text>
+        <Text>City: {item.city}</Text>
         </Card>
     )
   }
@@ -94,10 +96,21 @@ function MyProfile(props) {
   };
   console.log("profData: ", profileData)
   return (
-    <View style={{flex:1, alignItems: 'center', backgroundColor: '#fff'}}>
-        <Image style={{width:'100%', height:'40%', backgroundColor: '#aaa'}} source={{
+    <View style={{flex: 1, backgroundColor: '#fff'}}>
+    <ScrollView
+    contentContainerStyle={{alignItems: 'center', backgroundColor: '#fff', flexGrow: 1}}
+     >
+        <View style={{width:'100%', aspectRatio: 1/0.7 }}>
+        <ImageBackground
+        source={userData.sex == 'male' ? {uri: male} : {uri: female}}
+        resizeMode='contain'
+        style={{width:'100%', height: '100%'}}
+        >
+          <Image style={{width:'100%', height:'100%'}} source={{
             uri: `http://172.20.10.3:8000${profileData.profile_photo}`
         }}/>
+        </ImageBackground>
+        </View>
         <Text style={{margin: 10}}>
           <Text style={{fontSize: 30, fontWeight: '600'}}>{userData.name}</Text><Text style={{fontSize: 25, fontWeight: '400'}}>, {userData.age}</Text>
         </Text>
@@ -152,6 +165,7 @@ function MyProfile(props) {
               checkToken()
             }}
         >Log Out</Button>
+    </ScrollView>
     </View>
       )
 }

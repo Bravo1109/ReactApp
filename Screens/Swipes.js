@@ -1,9 +1,13 @@
 import React, {useState ,useEffect} from 'react';
-import { StyleSheet, Text, View, Dimensions, Image, Animated, PanResponder, ActivityIndicator } from 'react-native';
+import { StyleSheet, Text, View, Dimensions, Image, Animated, PanResponder, ActivityIndicator, ImageBackground } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import Male from '../images/male.png'
+import Female from '../images/female.png'
 
 const SCREEN_HEIGHT = Dimensions.get('window').height
 const SCREEN_WIDTH = Dimensions.get('window').width
+const male = Image.resolveAssetSource(Male).uri
+const female = Image.resolveAssetSource(Female).uri
 
 export default class Swipes extends React.Component {
     getTokenData = async () => {
@@ -181,9 +185,26 @@ export default class Swipes extends React.Component {
 
             </Animated.View>
             <View style={{flex: 1, backgroundColor: '#fff', borderRadius: 20, overflow: 'hidden', borderColor:'blue', borderWidth: 2}}>
-            <Image
-              style={{ flex: 1, height: null, width: null, resizeMode: 'cover' }}
-              source={{uri: `http://172.20.10.3:8000${item.photo}`}} />
+            {/* <Image
+              style={{ flex: 1, height: null, width: null, resizeMode: 'cover'}}
+              source={{uri: `http://172.20.10.3:8000${item.photo}`}} /> */}
+            <ImageBackground
+            source={item.sex == 'male' ? {uri: male} : {uri: female}}
+            resizeMode='contain'
+            style={{flex: 1, height: null, width: null, overflow: 'hidden', backgroundColor: '#aaa' }}
+            >
+              {item.photo != null ? <Image
+                style={{width:'100%', height:'100%'}}
+                source={{
+                  uri: `http://172.20.10.3:8000${item.photo}`
+                }}
+                
+              /> : <View></View> }
+              <ActivityIndicator 
+              style={{position: 'absolute', left:0, top:0, right:0, bottom:0}}
+              animating={false}
+              />
+            </ImageBackground>
             <Text style={{fontSize: 40, textAlign: 'center', height: '20%'}}>{item.name}, {item.age}</Text>
             </View>
 
@@ -209,9 +230,26 @@ export default class Swipes extends React.Component {
 
             </Animated.View>
             <View style={{flex: 1, backgroundColor: '#fff', borderRadius: 20, overflow: 'hidden', borderColor:'blue', borderWidth: 2}}>
-            <Image
+            {/* <Image
               style={{ flex: 1, height: null, width: null, resizeMode: 'cover' }}
-              source={{uri: `http://172.20.10.3:8000${item.photo}`}} />
+              source={{uri: `http://172.20.10.3:8000${item.photo}`}} /> */}
+            <ImageBackground
+            source={item.sex == 'male' ? {uri: male} : {uri: female}}
+            resizeMode='contain'
+            style={{flex: 1, height: null, width: null, overflow: 'hidden', backgroundColor: '#aaa' }}
+            >
+              {item.photo != null ? <Image
+                style={{width:'100%', height:'100%'}}
+                source={{
+                  uri: `http://172.20.10.3:8000${item.photo}`
+                }}
+                
+              /> : <View></View> }
+              <ActivityIndicator 
+              style={{position: 'absolute', left:0, top:0, right:0, bottom:0}}
+              animating={false}
+              />
+            </ImageBackground>
             <Text style={{fontSize: 40, textAlign: 'center', height: '20%'}}>{item.name}, {item.age}</Text>
             </View>
 

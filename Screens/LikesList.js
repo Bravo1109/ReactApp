@@ -1,7 +1,8 @@
 import React, {useState ,useEffect} from 'react'
-import { Text, View, FlatList, StyleSheet, Image, TouchableOpacity, ActivityIndicator } from 'react-native'
+import { Text, View, FlatList, StyleSheet, Image, TouchableOpacity, ActivityIndicator, ImageBackground } from 'react-native'
 import { useIsFocused } from "@react-navigation/native";
-import { Card } from 'react-native-paper'
+import Male from '../images/male.png'
+import Female from '../images/female.png'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
 function LikesList(props) {
@@ -13,6 +14,8 @@ function LikesList(props) {
             console.log('error', e)
         }
       }
+      const male = Image.resolveAssetSource(Male).uri
+      const female = Image.resolveAssetSource(Female).uri
       const isFocused = useIsFocused();
       const token = getTokenData()
       const [data, setData] = useState([])
@@ -48,10 +51,25 @@ function LikesList(props) {
         <View style={{width: '50%'}}>
         <TouchableOpacity style={styles.cardStyle} activeOpacity = {1} onPress = {() => clickedItem(item.sender)}>
           <View style={{flexDirection:"column", alignItems: 'center', width: '100%'}}> 
-            <Image style={{width:'100%', aspectRatio:1/1, borderRadius:15, backgroundColor: 'black',
-            borderColor: 'blue', borderWidth: 1}} source={{
-              uri: `http://172.20.10.3:8000${item.sender.photo}`
-            }}/>
+            <ImageBackground
+              source={item.sender.sex == 'male' ? {uri: male} : {uri: female}}
+              resizeMode='contain'
+              style={{width:'100%', aspectRatio:1/1, overflow: 'hidden', borderColor: 'blue', borderRadius:15,
+              borderWidth: 1
+              }}
+            >
+              {item.sender.photo != null ? <Image
+                style={{width:'100%', height:'100%'}}
+                source={{
+                  uri: `http://172.20.10.3:8000${item.sender.photo}`
+                }}
+                // onLoadEnd={() => setLoadImage(false)}
+              /> : <View></View> }
+              <ActivityIndicator 
+                style={{position: 'absolute', left:0, top:0, right:0, bottom:0}}
+                animating={false}
+              />
+            </ImageBackground>
             <View style={{marginTop: 5}}>
               <Text style = {{fontSize:15}}>{item.sender.name}, {item.sender.age}</Text>
             </View>
