@@ -96,7 +96,7 @@ function Profile(props) {
     <ScrollView
     contentContainerStyle={{alignItems: 'center', flexGrow: 1, backgroundColor: '#fff'}}
      >
-      <View style={{width:'100%', aspectRatio: 1/0.7}}>
+      <View style={{width:'100%', aspectRatio: 4/3}}>
         <ImageBackground
         source={userData.sex == 'male' ? {uri: male} : {uri: female}}
         resizeMode='contain'

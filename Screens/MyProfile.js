@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import { StyleSheet, Text, Image, View, ActivityIndicator, ImageBackground, ScrollView, FlatList } from 'react-native';
-import { Button } from 'react-native-paper';
+import { StyleSheet, Text, Image, View, ActivityIndicator, ImageBackground, ScrollView, FlatList, Platform } from 'react-native';
+import * as ImagePicker from 'expo-image-picker';
+import { Constants } from 'expo-constants';
+import { Button, IconButton } from 'react-native-paper';
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import {Card} from 'react-native-paper';
 import { useIsFocused } from "@react-navigation/native";
@@ -10,6 +12,7 @@ import Female from '../images/female.png'
 
 function MyProfile(props) {
   const [profileData, setProfileData] = useState([])
+  const [image, setImage] = useState(null)
   const male = Image.resolveAssetSource(Male).uri
   const female = Image.resolveAssetSource(Female).uri
   const [userData, setUserData] = useState()
@@ -27,6 +30,23 @@ function MyProfile(props) {
     .then(res => {
       setProfileData(res)
       setLoading(false)
+    })
+    .catch(error => {
+      console.log("Error", error)
+    })
+  }
+  const loadImage = (formData) => {
+    fetch(`http://172.20.10.3:8000/api/users/${userData.id}/profile/${profileData.id}/`, {
+      method:"PATCH",
+      body: formData,
+      headers: {
+        'Content-type': 'multipart/form-data',
+        'Authorization': `${token._z}`
+      }
+    }).then((resp) => {
+      return resp.json()
+    }).then((res) => {
+      loadProfileData()
     })
     .catch(error => {
       console.log("Error", error)
@@ -84,13 +104,32 @@ function MyProfile(props) {
     }
   }, [userData])
 
-  const renderData = (item) => {
-    return(
-        <Card>
-        <Text>City: {item.city}</Text>
-        </Card>
-    )
+  const PickImage = async () => {
+    if (Platform.OS !== 'web') {
+      const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+      if (status !== 'granted') {
+        alert('Permission denied!')
+      }
+      if (status == 'granted') {
+        let result = await ImagePicker.launchImageLibraryAsync({
+          mediaTypes: ImagePicker.MediaTypeOptions.All,
+          allowsEditing: true,
+          aspect: [4,3],
+          quality: 0.7
+        })
+        if (!result.canceled) {
+          let formData = new FormData();
+          formData.append('profile_photo', {
+            uri: result.assets[0].uri,
+            name: 'image.jpeg',
+            type: 'image/jpeg'
+          });
+          loadImage(formData)
+        }
+      } 
+    }
   }
+
   if(!userData) {
     return <ActivityIndicator/>
   };
@@ -100,7 +139,7 @@ function MyProfile(props) {
     <ScrollView
     contentContainerStyle={{alignItems: 'center', backgroundColor: '#fff', flexGrow: 1}}
      >
-        <View style={{width:'100%', aspectRatio: 1/0.7 }}>
+        <View style={{width:'100%', aspectRatio: 4/3 }}>
         <ImageBackground
         source={userData.sex == 'male' ? {uri: male} : {uri: female}}
         resizeMode='contain'
@@ -109,6 +148,22 @@ function MyProfile(props) {
           <Image style={{width:'100%', height:'100%'}} source={{
             uri: `http://172.20.10.3:8000${profileData.profile_photo}`
         }}/>
+        <IconButton
+            icon='camera'
+            iconColor='white'
+            containerColor='blue'
+            mode='contained'
+            size={30}
+            style={{
+              position: 'absolute',
+              bottom: 10,
+              right: 10,
+              borderRadius: 100,
+              width:50,
+              height:50
+            }}
+            onPress={PickImage}
+        />
         </ImageBackground>
         </View>
         <Text style={{margin: 10}}>
