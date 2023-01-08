@@ -168,13 +168,13 @@ function Profile(props) {
         transparent={true}
         animationType='fade'
         visible={modal}
-    >
+        >
         <KeyboardAvoidingView style={{
             flex: 1,
             alignItems: 'center',
             justifyContent: 'flex-end'
         }}
-        behavior={Platform.OS === 'ios' ? 'height' : 'padding'}>
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
             
           <TouchableOpacity onPress={() => {
             setModal(false)
@@ -186,6 +186,7 @@ function Profile(props) {
             opacity: 0.5,
             position:'absolute',
             left: 0,
+            top: 0,
             zIndex: 0
           }}
           activeOpacity={0.5}

@@ -7,7 +7,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 
 function SignUp(props) {
     let status = 0
-    const [selected, setSelected] = useState('female')
+    const sex = props.route.params
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
     const [username, setUsername] = useState('')
@@ -26,7 +26,7 @@ function SignUp(props) {
           body: JSON.stringify({
             email: email,
             password: password,
-            city: city,
+            sex: sex,
             name: name,
             birth_date: birthDate,
             city: city,
@@ -51,23 +51,12 @@ function SignUp(props) {
         
         <KeyboardAvoidingView
             style={{flex: 1}}
-            behavior={Platform.OS === 'ios' ? 'height' : 'padding'}
+            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
             keyboardVerticalOffset={Platform.OS === 'ios' ? 100 : 0}
         >
           <ScrollView style={{flex: 1}}>
             <View style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
-            <Text style={{fontSize: 30, textAlign: 'center'}}>Sex</Text>
-            <Picker
-            selectedValue={selected}
-            onValueChange={(itemValue, itemIndex) => {
-                setSelected(itemValue)
-            }}
-            style={{width: '40%'}}
-            >
-                <Picker.Item label='Male' value='male' />
-                <Picker.Item label='Female' value='female' />
-                <Picker.Item label='Other' value='other' />
-            </Picker>
+            <Text style={{fontSize: 30, textAlign: 'center'}}>Sex: {sex}</Text>
             </View>
             
             <TextInput style = {styles.inputStyle}

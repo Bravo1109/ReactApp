@@ -15,6 +15,7 @@ import MyProfile from './Screens/MyProfile';
 import RatingList from './Screens/RatingList';
 import Swipes from './Screens/Swipes';
 import LikesList from './Screens/LikesList';
+import Sex from './Screens/Sex';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -94,6 +95,19 @@ function LikeStackScreen() {
   )
 }
 
+function SignupStackScreen() {
+  return(
+    <Stack.Navigator>
+      <Stack.Screen name = "Sex" component={Sex}
+        options = {{...myStyles, headerShown: false}}
+      />
+      <Stack.Screen name = "UserInfo" component={SignUp}
+        options = {{...myStyles, headerShown: false, gestureEnabled: false}}
+      />
+    </Stack.Navigator>
+  )
+}
+
 function LoginScreen() {
   return(
     <Stack.Navigator>
@@ -106,7 +120,7 @@ function LoginScreen() {
       <Stack.Screen name = "Signin" component={SignIn}
           options = {{...myStyles, title: "Sign in", headerLeft: null, gestureEnabled: false}}
       />
-      <Stack.Screen name = "Signup" component={SignUp}
+      <Stack.Screen name = "Signup" component={SignupStackScreen}
           options = {{...myStyles, title: "Sign up", gestureEnabled: false}}
       />
     </Stack.Navigator>

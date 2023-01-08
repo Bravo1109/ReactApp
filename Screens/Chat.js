@@ -180,7 +180,7 @@ function Chat(props) {
     </TouchableOpacity>
     <KeyboardAvoidingView
      style={{flex: 1}}
-     behavior={Platform.OS === 'ios' ? 'height' : 'padding'}
+     behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
      keyboardVerticalOffset={Platform.OS === 'ios' ? 75 : 0}
     >
     
