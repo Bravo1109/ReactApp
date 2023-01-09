@@ -1,9 +1,10 @@
-import React, { useState, useEffect} from 'react'
-import { StyleSheet, Text, Image,
-  View, ActivityIndicator, FlatList, 
-  Modal, TouchableOpacity, KeyboardAvoidingView, ImageBackground,
+import React, { useState, useEffect } from 'react'
+import { Text, Image,
+  View, ActivityIndicator, Modal,
+  TouchableOpacity, KeyboardAvoidingView, ImageBackground,
   ScrollView } from 'react-native';
 import Male from '../images/male.png'
+import { useIsFocused } from "@react-navigation/native";
 import Female from '../images/female.png'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { Button, TextInput, IconButton } from 'react-native-paper';
@@ -11,6 +12,7 @@ import {Card} from 'react-native-paper';
 
 
 function Profile(props) {
+  const isFocused = useIsFocused();
   const [profileData, setProfileData] = useState([])
   const male = Image.resolveAssetSource(Male).uri
   const female = Image.resolveAssetSource(Female).uri
@@ -29,7 +31,7 @@ function Profile(props) {
     }).then(resp => resp.json())
     .then(res => {
       setProfileData(res)
-      // setLoading(false)
+      setLoading(false)
     })
     .catch(error => {
       console.log("Error", error)
@@ -77,20 +79,11 @@ function Profile(props) {
     getTokenData()
       .then(() => loadUserData())
       .then(() => loadProfileData())
-  }, [])
+  }, [isFocused])
 
-  const renderData = (item) => {
-    console.log('Here')
-    return(
-        <Card>
-        <Text>City: {item.name}</Text>
-        </Card>
-    )
-  }
   if(!userData) {
     return <ActivityIndicator/>
   };
-  console.log("userData: ", userData)
   return (
     <View style={{ flex:1, backgroundColor: '#fff'}}>
     <ScrollView
@@ -157,7 +150,7 @@ function Profile(props) {
             mode='contained'
             size={30}
             style={{
-              position: 'fixed',
+              position: 'absolute',
               bottom: 10,
               borderRadius: 100,
               width:70,

@@ -93,7 +93,7 @@ function Home(props) {
       onRefresh = {() => loadData()}
       refreshing = {loading}
       keyExtractor = {item => `${item.id}`}
-      style={{backgroundColor:'#fff'}}
+      style={{backgroundColor:'#ffffff'}}
       />
 
      </View>
@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
     cardStyle: {
         flexDirection:"row",
         padding: 15,
-        backgroundColor: '#fff'
+        backgroundColor: '#ffffff'
     },
 })
 

@@ -128,10 +128,11 @@ function Chat(props) {
     if (item.author.id != users[0].id) {
         return(
           <View>
-            {(item.id == messages.at(-1).id) && <Text style={styles.dateStyleMessages}>{item.pub_date}</Text>}
-          <Card style={{justifyContent: "right", alignItems:'flex-end', backgroundColor: 'transparent'}}>
+            {(item.id == messages[messages.length - 1].id) && <Text style={styles.dateStyleMessages}>{item.pub_date}</Text>}
+          <View style={{justifyContent: "flex-end", alignItems:'flex-end', backgroundColor: 'transparent'}}>
           <TouchableOpacity
-            style={{margin:5, maxWidth:'80%', borderRadius:`25`, backgroundColor: "blue"}}
+            style={{margin:5, maxWidth:'80%', borderRadius: 25, backgroundColor: "blue",
+            elevation: 3, shadowColor: '#000', shadowOffset: {width: 0, height: 2}, shadowOpacity: 0.2}}
             onLongPress={() => {
               setModal(true)
               setItemId(item.id)
@@ -142,7 +143,7 @@ function Chat(props) {
             >
               <Text style = {itemStyle.myCardStyle}>{item.text}</Text> 
           </TouchableOpacity>
-      </Card>
+      </View>
       {(a == 1 && item.id != data[0].id) && <Text style={styles.dateStyleMessages}>{mesDate}</Text>}
       </View>
   )
@@ -150,12 +151,13 @@ function Chat(props) {
     else {
         return(
           <View>
-            {(item.id == messages.at(-1).id) && <Text style={styles.dateStyleMessages}>{item.pub_date}</Text>}
-          <Card style={{justifyContent: "left", alignItems:'flex-start', backgroundColor: 'transparent'}}>
-              <View style={{margin:5, maxWidth:'80%', borderRadius:`25`, backgroundColor: "#222222"}}>
+            {(item.id == messages[messages.length - 1].id) && <Text style={styles.dateStyleMessages}>{item.pub_date}</Text>}
+          <View style={{justifyContent: "flex-start", alignItems:'flex-start', backgroundColor: 'transparent'}}>
+              <View style={{margin:5, maxWidth:'80%', borderRadius:25, backgroundColor: "#222222",
+              elevation: 3, shadowColor: '#000', shadowOffset: {width: 0, height: 4}, shadowOpacity: 0.2}}>
                   <Text style = {itemStyle.userCardStyle}>{item.text}</Text> 
               </View>
-          </Card>
+          </View>
           {(a == 1 && item.id != data[0].id) && <Text style={styles.dateStyleMessages}>{mesDate}</Text>}
           </View>
       ) 
@@ -163,10 +165,10 @@ function Chat(props) {
   }
 
   return (
-    <View style={{flex:1, zIndex:1, backgroundColor: 'white'}}>
+    <View style={{flex:1, zIndex:1, backgroundColor: '#fff'}}>
     <TouchableOpacity
       onPress={() => props.navigation.navigate("Profile", {id:users[0]})}
-      style={[styles.Shadows, {justifyContent:'center', backgroundColor: 'white', alignItems: 'center', elevation: 2, shadowColor: '#52006A'}]}
+      style={[styles.Shadows, {justifyContent:'center', backgroundColor: '#fff', alignItems: 'center', elevation: 2, shadowColor: '#52006A'}]}
       activeOpacity={1}
     >
     <Image 
@@ -180,8 +182,8 @@ function Chat(props) {
     </TouchableOpacity>
     <KeyboardAvoidingView
      style={{flex: 1}}
-     behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-     keyboardVerticalOffset={Platform.OS === 'ios' ? 75 : 0}
+     behavior={Platform.OS === 'ios' ? 'padding' : 'padding'}
+     keyboardVerticalOffset={Platform.OS === 'ios' ? 75 : -100}
     >
     
     <FlatList

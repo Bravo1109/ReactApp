@@ -31,7 +31,9 @@ const myStyles = {
 function ChatStackScreen() {
   return(
     <View style={styles.container}>
-      <Stack.Navigator>
+      <Stack.Navigator
+      screenOptions={{contentStyle: {backgroundColor: '#ffffff'}}}
+      >
         <Stack.Screen name = "Home" component={Home}
           options = {{...myStyles, headerLeft: null}}
         />

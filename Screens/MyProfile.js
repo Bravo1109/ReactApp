@@ -59,9 +59,7 @@ function MyProfile(props) {
       headers: {
         'Authorization': `${token._z}`
       }
-    }).then((resp) => {
-        return resp.json()
-    })
+    }).then(resp => resp.json())
     .then(res => {
       setUserData(res)
       setLoading(false)
@@ -133,7 +131,6 @@ function MyProfile(props) {
   if(!userData) {
     return <ActivityIndicator/>
   };
-  console.log("profData: ", profileData)
   return (
     <View style={{flex: 1, backgroundColor: '#fff'}}>
     <ScrollView
